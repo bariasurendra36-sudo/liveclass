@@ -35,6 +35,7 @@
             }
         }
     </script>
+    <!-- Fix: Removed @apply to fix VS Code errors, replaced with pure CSS for custom states -->
     <style>
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -42,27 +43,27 @@
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #475569; }
         
-        /* Tool Buttons Setup */
-        .tool-btn {
-            @apply p-3 rounded-xl transition-all duration-300 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 active:scale-90 relative;
-        }
-        .tool-btn.active {
-            @apply bg-primary/20 text-primary border border-primary/50 scale-110 animate-glow z-10;
+        /* Selected States */
+        .tool-btn.selected {
+            background-color: rgba(99, 102, 241, 0.2);
+            color: #6366f1;
+            border: 1px solid rgba(99, 102, 241, 0.5);
+            transform: scale(1.1);
+            animation: glow 2s ease-in-out infinite alternate;
+            z-index: 10;
         }
         
-        .brush-btn {
-            @apply p-2 rounded-lg transition-all duration-200 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 relative;
-        }
-        .brush-btn.active {
-            @apply bg-accent/20 text-accent border border-accent/50 shadow-[0_0_15px_rgba(139,92,246,0.6)];
+        .brush-btn.selected {
+            background-color: rgba(139, 92, 246, 0.2);
+            color: #8b5cf6;
+            border: 1px solid rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
         }
 
-        .color-btn {
-            @apply w-7 h-7 rounded-full border-2 border-transparent transition-all duration-300 hover:scale-110 active:scale-90 relative;
-        }
-        .color-btn.active {
-            @apply border-white scale-125 z-10;
-            box-shadow: 0 0 15px currentColor, 0 0 5px white;
+        .color-btn.selected {
+            border-color: white;
+            transform: scale(1.25);
+            z-index: 10;
         }
 
         /* Fixed Yellow Glow for Active/Touch States */
@@ -89,8 +90,7 @@
                 <i class="ph-bold ph-graduation-cap text-2xl text-white"></i>
             </div>
             <div>
-                <h1 class="font-bold text-lg tracking-wide bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-sm">Live Classes by Surendra Baria</h1>
-                <p class="text-xs text-gray-400 font-medium">Professional Teaching Environment</p>
+                <h1 class="font-bold text-lg tracking-wide bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-sm outline-none border-b border-transparent focus:border-yellow-500/50 transition-colors" contenteditable="true" spellcheck="false" title="Click to edit title">Live Classes by Surendra Baria</h1>
             </div>
         </div>
 
@@ -133,18 +133,18 @@
         <!-- Sidebar Tools -->
         <aside class="w-20 bg-panel border-r border-white/5 flex flex-col items-center py-6 gap-5 shrink-0 z-40 overflow-y-auto custom-scrollbar">
             
-            <!-- Drawing Tools -->
+            <!-- Drawing Tools (Classes added directly to HTML to fix VS Code Errors) -->
             <div class="flex flex-col gap-2 w-full px-3">
-                <button id="tool-pen" class="tool-btn active" title="Draw">
+                <button id="tool-pen" class="tool-btn selected p-3 rounded-xl transition-all duration-300 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 relative" title="Draw">
                     <i class="ph ph-pencil-simple text-2xl"></i>
                 </button>
-                <button id="tool-pan" class="tool-btn" title="Pan / Move Canvas">
+                <button id="tool-pan" class="tool-btn p-3 rounded-xl transition-all duration-300 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 relative" title="Pan / Move Canvas">
                     <i class="ph ph-hand-palm text-2xl"></i>
                 </button>
-                <button id="tool-eraser" class="tool-btn" title="Eraser">
+                <button id="tool-eraser" class="tool-btn p-3 rounded-xl transition-all duration-300 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 relative" title="Eraser">
                     <i class="ph ph-eraser text-2xl"></i>
                 </button>
-                <button id="tool-clear" class="tool-btn hover:text-red-400" title="Clear Canvas">
+                <button id="tool-clear" class="tool-btn p-3 rounded-xl transition-all duration-300 flex items-center justify-center text-gray-400 hover:text-red-400 hover:bg-white/10 relative" title="Clear Canvas">
                     <i class="ph ph-trash text-2xl"></i>
                 </button>
             </div>
@@ -154,9 +154,9 @@
             <!-- Brush Types -->
             <div class="flex flex-col gap-2 w-full px-4">
                 <span class="text-[10px] text-gray-500 uppercase font-bold text-center mb-1">Brush</span>
-                <button class="brush-btn active" data-brush="solid" title="Solid Pen"><i class="ph ph-pen-nib text-xl"></i></button>
-                <button class="brush-btn" data-brush="marker" title="Highlighter Marker"><i class="ph ph-highlighter text-xl"></i></button>
-                <button class="brush-btn" data-brush="spray" title="Spray Paint"><i class="ph ph-drop text-xl"></i></button>
+                <button class="brush-btn selected p-2 rounded-lg transition-all duration-200 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 relative" data-brush="solid" title="Solid Pen"><i class="ph ph-pen-nib text-xl"></i></button>
+                <button class="brush-btn p-2 rounded-lg transition-all duration-200 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 relative" data-brush="marker" title="Highlighter Marker"><i class="ph ph-highlighter text-xl"></i></button>
+                <button class="brush-btn p-2 rounded-lg transition-all duration-200 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 relative" data-brush="spray" title="Spray Paint"><i class="ph ph-drop text-xl"></i></button>
             </div>
 
             <div class="w-10 h-px bg-white/10"></div>
@@ -168,15 +168,15 @@
                     <i class="ph-bold ph-caret-down text-xs transition-transform duration-300" id="colors-caret"></i>
                 </div>
                 <div class="grid grid-cols-2 gap-3 px-2 transition-all duration-300 origin-top" id="color-palette-grid">
-                    <button class="color-btn active text-red-500" style="background-color: #ef4444;" data-color="#ef4444" title="Red"></button>
-                    <button class="color-btn text-orange-500" style="background-color: #f97316;" data-color="#f97316" title="Orange"></button>
-                    <button class="color-btn text-yellow-500" style="background-color: #f59e0b;" data-color="#f59e0b" title="Yellow"></button>
-                    <button class="color-btn text-emerald-500" style="background-color: #10b981;" data-color="#10b981" title="Green"></button>
-                    <button class="color-btn text-cyan-500" style="background-color: #06b6d4;" data-color="#06b6d4" title="Cyan"></button>
-                    <button class="color-btn text-blue-500" style="background-color: #3b82f6;" data-color="#3b82f6" title="Blue"></button>
-                    <button class="color-btn text-purple-500" style="background-color: #8b5cf6;" data-color="#8b5cf6" title="Purple"></button>
-                    <button class="color-btn text-pink-500" style="background-color: #ec4899;" data-color="#ec4899" title="Pink"></button>
-                    <button class="color-btn text-white" style="background-color: #ffffff;" data-color="#ffffff" title="White"></button>
+                    <button class="color-btn selected text-red-500 w-7 h-7 rounded-full border-2 border-transparent transition-all duration-300 relative" style="background-color: #ef4444; box-shadow: 0 0 15px #ef4444, 0 0 5px white;" data-color="#ef4444" title="Red"></button>
+                    <button class="color-btn text-orange-500 w-7 h-7 rounded-full border-2 border-transparent transition-all duration-300 relative" style="background-color: #f97316;" data-color="#f97316" title="Orange"></button>
+                    <button class="color-btn text-yellow-500 w-7 h-7 rounded-full border-2 border-transparent transition-all duration-300 relative" style="background-color: #f59e0b;" data-color="#f59e0b" title="Yellow"></button>
+                    <button class="color-btn text-emerald-500 w-7 h-7 rounded-full border-2 border-transparent transition-all duration-300 relative" style="background-color: #10b981;" data-color="#10b981" title="Green"></button>
+                    <button class="color-btn text-cyan-500 w-7 h-7 rounded-full border-2 border-transparent transition-all duration-300 relative" style="background-color: #06b6d4;" data-color="#06b6d4" title="Cyan"></button>
+                    <button class="color-btn text-blue-500 w-7 h-7 rounded-full border-2 border-transparent transition-all duration-300 relative" style="background-color: #3b82f6;" data-color="#3b82f6" title="Blue"></button>
+                    <button class="color-btn text-purple-500 w-7 h-7 rounded-full border-2 border-transparent transition-all duration-300 relative" style="background-color: #8b5cf6;" data-color="#8b5cf6" title="Purple"></button>
+                    <button class="color-btn text-pink-500 w-7 h-7 rounded-full border-2 border-transparent transition-all duration-300 relative" style="background-color: #ec4899;" data-color="#ec4899" title="Pink"></button>
+                    <button class="color-btn text-white w-7 h-7 rounded-full border-2 border-transparent transition-all duration-300 relative" style="background-color: #ffffff;" data-color="#ffffff" title="White"></button>
                     <!-- Custom Color Picker -->
                     <div class="relative w-7 h-7 rounded-full overflow-hidden border-2 border-transparent hover:scale-110 transition-transform cursor-pointer" title="Custom Color" id="custom-color-wrapper" style="background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);">
                         <input type="color" id="custom-color-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" value="#00ff00" />
@@ -239,11 +239,11 @@
             </button>
         </div>
 
-        <div class="absolute bottom-3 left-3 z-30 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 flex items-center gap-2 pointer-events-none">
-            <div class="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center shadow-inner">
+        <div class="absolute bottom-3 left-3 z-30 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 flex items-center gap-2">
+            <div class="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center shadow-inner pointer-events-none">
                 <i class="ph-fill ph-graduation-cap text-xs text-white"></i>
             </div>
-            <span class="font-bold text-sm tracking-wide text-white drop-shadow-md">Surendra Baria</span>
+            <span class="font-bold text-sm tracking-wide text-white drop-shadow-md outline-none border-b border-transparent focus:border-white/50 transition-colors" contenteditable="true" spellcheck="false" title="Click to edit name">Surendra Baria</span>
         </div>
         <div id="cam-status" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-900 z-10 pointer-events-none">
             <i class="ph ph-camera-slash text-3xl text-gray-500 mb-2"></i>
@@ -638,8 +638,8 @@
             if (btn.id === 'tool-clear') { btn.addEventListener('click', clearCanvas); return; }
             
             btn.addEventListener('click', () => {
-                els.toolBtns.forEach(b => { if(b.id !== 'tool-clear') b.classList.remove('active'); });
-                btn.classList.add('active');
+                els.toolBtns.forEach(b => { if(b.id !== 'tool-clear') b.classList.remove('selected'); });
+                btn.classList.add('selected');
                 
                 if (btn.id === 'tool-pen') { state.currentTool = 'pen'; els.drawCanvas.style.cursor = 'crosshair'; }
                 if (btn.id === 'tool-pan') { state.currentTool = 'pan'; els.drawCanvas.style.cursor = 'grab'; }
@@ -649,8 +649,8 @@
 
         els.brushBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                els.brushBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+                els.brushBtns.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
                 state.brushType = btn.dataset.brush;
                 if(state.currentTool !== 'pen') document.getElementById('tool-pen').click();
             });
@@ -658,7 +658,10 @@
 
         const setColor = (color) => {
             state.currentColor = color;
-            els.colorBtns.forEach(b => b.classList.remove('active'));
+            els.colorBtns.forEach(b => {
+                b.classList.remove('selected');
+                b.style.boxShadow = 'none';
+            });
             els.customColorWrapper.classList.remove('border-white', 'scale-125', 'shadow-lg');
             
             if(state.currentTool !== 'pen') document.getElementById('tool-pen').click();
@@ -667,7 +670,7 @@
         els.colorBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 setColor(btn.dataset.color);
-                btn.classList.add('active');
+                btn.classList.add('selected');
                 btn.style.boxShadow = `0 0 15px ${btn.dataset.color}, 0 0 5px white`;
             });
         });
